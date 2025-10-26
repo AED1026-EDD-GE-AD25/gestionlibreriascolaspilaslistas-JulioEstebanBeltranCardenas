@@ -89,11 +89,43 @@ public class ListaDoble<T>{
      * @throws PosicionIlegalException
      */
 
-    public T remover(int pos) throws PosicionIlegalException{
-        
-        
+    public T remover(int pos) throws PosicionIlegalException {
+    if (pos >= 0 && pos < tamanio) {
+        T valor;
+        if (pos == 0) {
+            // Eliminar el primer nodo
+            valor = cabeza.getValor();
+            cabeza = cabeza.getSiguiente();
+            if (cabeza != null) {
+                cabeza.setAnterior(null);
+            }
+        } else {
+            // Buscar el nodo en la posición
+            Nodo<T> aux = cabeza;
+            for (int i = 0; i < pos; i++) {
+                aux = aux.getSiguiente();
+            }
+            valor = aux.getValor();
+            
+            // Reconectar los nodos adyacentes
+            Nodo<T> anterior = aux.getAnterior();
+            Nodo<T> siguiente = aux.getSiguiente();
+            
+            if (anterior != null) {
+                anterior.setSiguiente(siguiente);
+            }
+            if (siguiente != null) {
+                siguiente.setAnterior(anterior);
+            }
+        }
+        tamanio--;
+        return valor;
+    } else {
+        throw new PosicionIlegalException();
     }
-     /*
+    }
+
+    /*
      * Elimina un nodo que contiene un T valor
      * @param T: valor a eliminar
      * @return: si lo encuentra retorna la posicion a eliminar,si no retorna -1
@@ -108,10 +140,23 @@ public class ListaDoble<T>{
     
 
       */
-     public int remover(T valor) throws PosicionIlegalException{
-        
-       
-        
+    public int remover(T valor) throws PosicionIlegalException {
+    if (esVacia()) {
+        return -1;
+    }
+    
+    Nodo<T> aux = cabeza;
+    int posicion = 0;
+    
+    while (aux != null) {
+        if (aux.getValor().equals(valor)) {
+            remover(posicion);
+            return posicion;
+        }
+        aux = aux.getSiguiente();
+        posicion++;
+    }
+    return -1;
     }
 
     /*
@@ -153,8 +198,20 @@ public class ListaDoble<T>{
 
     @Override
     public String toString() {
-       
-
+    if (esVacia()) {
+        return "Lista vacía";
+    }
+    
+    String resultado = "";
+    Nodo<T> aux = cabeza;
+    int posicion = 1;
+    
+    while (aux != null) {
+        resultado += posicion + ". " + aux.getValor() + "\n";
+        aux = aux.getSiguiente();
+        posicion++;
+    }
+    return resultado;
     }
     /*
      * busca un valor en la lista
