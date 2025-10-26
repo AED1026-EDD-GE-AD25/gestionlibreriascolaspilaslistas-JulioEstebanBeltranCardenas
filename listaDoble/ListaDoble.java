@@ -140,23 +140,45 @@ public class ListaDoble<T>{
     
 
       */
-    public int remover(T valor) throws PosicionIlegalException {
-    if (esVacia()) {
+     public int remover(T valor) throws PosicionIlegalException{
+        Nodo<T> aux = cabeza;
+        int posicion = 0;
+        while (aux != null) {
+            if (aux.getValor().equals(valor)) {
+                remover(posicion);
+                return posicion;
+            }
+            aux = aux.getSiguiente();
+            posicion++;
+        }
         return -1;
     }
-    
-    Nodo<T> aux = cabeza;
-    int posicion = 0;
-    
-    while (aux != null) {
-        if (aux.getValor().equals(valor)) {
-            remover(posicion);
-            return posicion;
+    /*
+     * Elimina el ultimo nodo de la lista
+     * @return : el valor del nodo eliminado
+     * @throws PosicionIlegalException
+     */
+    public T eliminarUltimo() throws PosicionIlegalException {
+        if (esVacia()) {
+            return null;
         }
-        aux = aux.getSiguiente();
-        posicion++;
-    }
-    return -1;
+        if (tamanio == 1) {
+            T valor = cabeza.getValor();
+            cabeza = null;
+            tamanio = 0;
+            return valor;
+        }
+        Nodo<T> aux = cabeza;
+        while (aux.getSiguiente() != null) {
+            aux = aux.getSiguiente();
+        }
+        T valor = aux.getValor();
+        Nodo<T> anterior = aux.getAnterior();
+        if (anterior != null) {
+            anterior.setSiguiente(null);
+        }
+        tamanio--;
+        return valor;
     }
 
     /*
