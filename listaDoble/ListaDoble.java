@@ -218,8 +218,19 @@ public class ListaDoble<T>{
      * @return true si contiene ese valor
      * si no regresa false
      */
-    public boolean contiene(T valor){
-        
+    public boolean contiene(T valor) {
+    if (esVacia()) {
+        return false;
+    }
+    
+    Nodo<T> aux = cabeza;
+    while (aux != null) {
+        if (aux.getValor().equals(valor)) {
+            return true;
+        }
+        aux = aux.getSiguiente();
+    }
+    return false;
     }
     
     

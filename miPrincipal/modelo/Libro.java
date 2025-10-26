@@ -37,7 +37,16 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro: " + titulo + " - Autor: " + autor + " - isbn: " + isbn;
+        return titulo + " - " + autor + " (ISBN: " + isbn + ")";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Libro) {
+            Libro libro = (Libro) obj;
+            return this.isbn.equals(libro.isbn);
+        }
+        return false;
     }
     
 }
