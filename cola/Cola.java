@@ -33,10 +33,8 @@ public class Cola<T> {
         if (esVacia()) {
             return null;
         }
-        
         T valor = frente.getValor();
         frente = frente.getSiguiente();
-        
         if (frente == null) {
             fin = null;
         }
@@ -57,12 +55,11 @@ public class Cola<T> {
 
     public void mostrar() {
         if (esVacia()) {
-            System.out.println("Coca cola nula del pepe");
+            System.out.println("Cola vacia xd");
             return;
         }
-        
         Nodo<T> actual = frente;
-        System.out.println("COLAAAAAAAAAAAAAA");
+        System.out.println("reserva el pepe");
         int contador = 1;
         while (actual != null) {
             System.out.println(contador + ". " + actual.getValor());

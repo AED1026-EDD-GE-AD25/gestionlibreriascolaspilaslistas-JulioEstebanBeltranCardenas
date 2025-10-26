@@ -25,7 +25,6 @@ public class Pila<T> {
         if (esVacia()) {
             return null;
         }
-        
         T valor = cima.getValor();
         cima = cima.getSiguiente();
         tamanio--;
@@ -45,11 +44,10 @@ public class Pila<T> {
 
     public void mostrar() {
         if (esVacia()) {
-            System.out.println("Pila nula del pepe");
+            System.out.println("Pila vacia");
             return;
         }
-        
-        System.out.println("Pal lobby");
+        System.out.println("PAL LOBBY MANCO");
         Nodo<T> actual = cima;
         int contador = 1;
         while (actual != null) {

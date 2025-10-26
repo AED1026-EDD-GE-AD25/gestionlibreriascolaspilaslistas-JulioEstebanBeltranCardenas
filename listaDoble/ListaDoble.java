@@ -232,6 +232,21 @@ public class ListaDoble<T>{
     }
     return false;
     }
+
+     public void mostrar() {
+        if (esVacia()) {
+            System.out.println("la lista esta vacia");
+            return;
+        }
+        Nodo<T> aux = cabeza;
+        int posicion = 1;
+        System.out.println("lista pepe");
+        while (aux != null) {
+            System.out.println(posicion + ". " + aux.getValor());
+            aux = aux.getSiguiente();
+            posicion++;
+        }
+    }
     
     
 }
