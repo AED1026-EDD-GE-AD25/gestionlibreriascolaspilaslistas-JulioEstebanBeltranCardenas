@@ -3,12 +3,12 @@ package miPrincipal.modelo;
 public class Libro {
     private String titulo;
     private String autor;
-    private String codigo;
+    private String isbn;
 
-    public Libro(String titulo, String autor, String codigo) {
+    public Libro(String titulo, String autor, String isbn) {
         this.titulo = titulo;
         this.autor = autor;
-        this.codigo = codigo;
+        this.isbn = isbn;
     }
 
     public String getTitulo() {
@@ -28,16 +28,16 @@ public class Libro {
     }
 
     public String getIsbn() {
-        return codigo;
+        return isbn;
     }
 
     public void setIsbn(String isbn) {
-        this.codigo = isbn;
+        this.isbn = isbn;
     }
 
     @Override
     public String toString() {
-        return "Libro: " + titulo + " - Autor: " + autor + " - codigo: " + codigo;
+        return "Libro: " + titulo + " - Autor: " + autor + " - isbn: " + isbn;
     }
     
 }

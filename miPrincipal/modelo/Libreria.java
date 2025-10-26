@@ -77,11 +77,15 @@ public class Libreria{
 
     }
 
-    public void buscarLibro(String isbn) {
-
-        
-
+    public Libro buscarLibro(String isbn) throws PosicionIlegalException {
+    for (int i = 0; i < listaLibros.getTamanio(); i++) {
+        Libro libro = listaLibros.getValor(i);
+        if (libro.getisbn().equals(isbn)) {
+            return libro;
+        }
     }
+    return null;
+}
 
 
 }
