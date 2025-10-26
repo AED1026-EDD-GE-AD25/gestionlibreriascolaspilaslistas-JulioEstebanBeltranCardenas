@@ -47,8 +47,7 @@ public class MenuOpciones{
     }
 
     public static void mostrarReservaLibros(){
-        // Este método necesita ser implementado en Libreria
-        System.out.println("Funcionalidad en desarrollo...");
+        libreria.mostrarReservaLibros();
     }
 
     public static void crearPedido(){
@@ -58,10 +57,21 @@ public class MenuOpciones{
         String autorPedido = scanner.nextLine();
         System.out.print("Ingrese el ISBN del libro para el pedido:");
         String isbnPedido = scanner.nextLine();
+        
         Libro libroPedido = libreria.crearLibro(tituloPedido, autorPedido, isbnPedido);
         Pedido pedido = null;
+        
         if (libroPedido != null){
-            pedido = libreria.crearPedido(libroPedido, new Fecha());
+            System.out.print("Ingrese el día del pedido (1-31):");
+            int dia = scanner.nextInt();
+            System.out.print("Ingrese el mes del pedido (1-12):");
+            int mes = scanner.nextInt();
+            System.out.print("Ingrese el año del pedido:");
+            int anio = scanner.nextInt();
+            scanner.nextLine(); // limpiar buffer
+            
+            pedido = libreria.crearPedido(libroPedido, new Fecha(dia, mes, anio));
+            
             if (pedido != null)
                 System.out.println("Pedido creado exitosamente: "+pedido);
             else
@@ -77,17 +87,33 @@ public class MenuOpciones{
         
         Libro libro = libreria.buscarLibro(isbn);
         if (libro != null) {
-            libreria.devolverLibro(libro);
+            boolean devuelto = libreria.devolverLibro(libro);
+            if (devuelto) {
+                System.out.println("Libro devuelto exitosamente: " + libro);
+            } else {
+                System.out.println("No se pudo devolver el libro");
+            }
         } else {
             System.out.println("Libro no encontrado en préstamos");
         }
     }
 
     public static Libro eliminarUltimoLibro() throws PosicionIlegalException{
-        return libreria.eliminarUltimoLibro();
+        Libro libroEliminado = libreria.eliminarUltimoLibro();
+        if (libroEliminado != null) {
+            System.out.println("Libro eliminado: " + libroEliminado);
+        } else {
+            System.out.println("No hay libros para eliminar");
+        }
+        return libroEliminado;
     }
 
     public static void deshacerEliminarLibro(){
-        libreria.deshacerEliminacion();
+        Libro libroRestaurado = libreria.deshacerEliminarLibro();
+        if (libroRestaurado != null) {
+            System.out.println("Libro restaurado: " + libroRestaurado);
+        } else {
+            System.out.println("No hay eliminaciones para deshacer");
+        }
     }
 }

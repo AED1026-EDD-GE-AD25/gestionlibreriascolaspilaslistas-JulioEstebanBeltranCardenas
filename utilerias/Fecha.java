@@ -43,9 +43,9 @@ public class Fecha {
 	}
 
 	
-
-	
-	//coloca aquí el código visto en clase
-	
-
+ @Override
+    public String toString() {
+        return dia + "/" + mes + "/" + anio;
+    }
+	//coloca aquí el código visto en clase	
 } 

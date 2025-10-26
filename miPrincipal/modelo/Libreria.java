@@ -80,6 +80,10 @@ public class Libreria {
         return ultimoLibro;
     }
 
+    public Libro deshacerEliminarLibro() {
+        return deshacerEliminacion();
+    }
+
     public Libro deshacerEliminacion() {
         Libro libro = pilaLibrosEliminados.retirar();
         if (libro != null) {
