@@ -1,5 +1,7 @@
 package utilerias;
 
+import java.time.LocalDate;
+
 public class Fecha {
 	private int dia;
 	private int mes;
@@ -10,6 +12,13 @@ public class Fecha {
 		this.dia = dia;
 		this.mes = mes;
 		this.anio = anio;
+	}
+
+	public Fecha(){
+		LocalDate hoy = LocalDate.now();
+		this.dia = hoy.getDayOfMonth();
+		this.mes = hoy.getMonthValue();
+		this.anio = hoy.getYear();
 	}
 
 
