@@ -70,14 +70,17 @@ public class Libreria {
     }
 
     public Libro eliminarUltimoLibro() throws PosicionIlegalException {
-        if (listaLibros.esVacia()) {
-            return null;
-        }
-        Libro ultimoLibro = listaLibros.eliminarUltimo();
-        if (ultimoLibro != null) {
-            pilaLibrosEliminados.apilar(ultimoLibro);
-        }
-        return ultimoLibro;
+    if (listaLibros.esVacia()) {
+        return null;
+    }
+    
+    Libro libroEliminado = listaLibros.eliminarUltimo();
+    
+    if (libroEliminado != null) {
+        pilaLibrosEliminados.apilar(libroEliminado);
+    }
+    
+    return libroEliminado;
     }
 
     public Libro deshacerEliminarLibro() {
