@@ -73,16 +73,16 @@ public class Libreria {
     if (listaLibros.esVacia()) {
         return null;
     }
-    
-    Libro libroEliminado = listaLibros.eliminarUltimo();
+    int ultimaPosicion = listaLibros.getTamanio() - 1;
+    Libro ultimoLibro = listaLibros.getValor(ultimaPosicion);
+    Libro libroEliminado = listaLibros.remover(ultimaPosicion);
     
     if (libroEliminado != null) {
         pilaLibrosEliminados.apilar(libroEliminado);
     }
     
     return libroEliminado;
-    }
-
+}
     public Libro deshacerEliminarLibro() {
         return deshacerEliminacion();
     }

@@ -19,25 +19,21 @@ public class ListaDoble<T>{
     }
     //agrega un nuevo nodo al fina de la lista
     public void agregar(T valor){
-        Nodo<T> nuevo = new Nodo<>();
-        //fija el valor al nuevo
-        nuevo.setValor(valor);
-        if (esVacia()){
-            //cabeza apunta al nuevo
-            cabeza = nuevo;
-            //cola apunta a nuevo
-            
-        }else{
-            //se agrega al fina de la lista
-            Nodo<T> aux = cabeza;
-            while (aux.getSiguiente() != null){
-                aux = aux.getSiguiente();
-            }
-            aux.setSiguiente(nuevo); 
-            
+    Nodo<T> nuevo = new Nodo<>();
+    nuevo.setValor(valor);
+    if (esVacia()){
+        cabeza = nuevo;
+    }else{
+        Nodo<T> aux = cabeza;
+        while (aux.getSiguiente() != null){
+            aux = aux.getSiguiente();
         }
-        tamanio++;
+        aux.setSiguiente(nuevo); 
+        nuevo.setAnterior(aux);
     }
+    tamanio++;
+    }
+            
     /*
      * Inserta un nuevo nodo en la lista
      * @param valor: valor a agregar
@@ -162,23 +158,23 @@ public class ListaDoble<T>{
     if (esVacia()) {
         return null;
     }
-    T valor;
-    if (tamanio == 1) {
-        valor = cabeza.getValor();
-        cabeza = null;
-    } else {
-        Nodo<T> aux = cabeza;
-        while (aux.getSiguiente() != null) {
-            aux = aux.getSiguiente();
-        }
-        
-        valor = aux.getValor();
-        Nodo<T> anterior = aux.getAnterior();
-        if (anterior != null) {
-            anterior.setSiguiente(null);
-        }
-    }
     
+    if (tamanio == 1) {
+        T valor = cabeza.getValor();
+        cabeza = null;
+        tamanio = 0;
+        return valor;
+    }
+    Nodo<T> aux = cabeza;
+    while (aux.getSiguiente() != null) {
+        aux = aux.getSiguiente();
+    }
+    T valor = aux.getValor();
+    Nodo<T> anterior = aux.getAnterior();
+    
+    if (anterior != null) {
+        anterior.setSiguiente(null);
+    }
     tamanio--;
     return valor;
     }
