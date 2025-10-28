@@ -19,25 +19,21 @@ public class ListaDoble<T>{
     }
     //agrega un nuevo nodo al fina de la lista
     public void agregar(T valor){
-        Nodo<T> nuevo = new Nodo<>();
-        //fija el valor al nuevo
-        nuevo.setValor(valor);
-        if (esVacia()){
-            //cabeza apunta al nuevo
-            cabeza = nuevo;
-            //cola apunta a nuevo
-            
-        }else{
-            //se agrega al fina de la lista
-            Nodo<T> aux = cabeza;
-            while (aux.getSiguiente() != null){
-                aux = aux.getSiguiente();
-            }
-            aux.setSiguiente(nuevo); 
-            
+    Nodo<T> nuevo = new Nodo<>();
+    nuevo.setValor(valor);
+    if (esVacia()){
+        cabeza = nuevo;
+    }else{
+        Nodo<T> aux = cabeza;
+        while (aux.getSiguiente() != null){
+            aux = aux.getSiguiente();
         }
-        tamanio++;
+        aux.setSiguiente(nuevo); 
+        nuevo.setAnterior(aux);
     }
+    tamanio++;
+    }
+            
     /*
      * Inserta un nuevo nodo en la lista
      * @param valor: valor a agregar
@@ -89,11 +85,43 @@ public class ListaDoble<T>{
      * @throws PosicionIlegalException
      */
 
-    public T remover(int pos) throws PosicionIlegalException{
-        
-        
+    public T remover(int pos) throws PosicionIlegalException {
+    if (pos >= 0 && pos < tamanio) {
+        T valor;
+        if (pos == 0) {
+            // Eliminar el primer nodo
+            valor = cabeza.getValor();
+            cabeza = cabeza.getSiguiente();
+            if (cabeza != null) {
+                cabeza.setAnterior(null);
+            }
+        } else {
+            // Buscar el nodo en la posición
+            Nodo<T> aux = cabeza;
+            for (int i = 0; i < pos; i++) {
+                aux = aux.getSiguiente();
+            }
+            valor = aux.getValor();
+            
+            // Reconectar los nodos adyacentes
+            Nodo<T> anterior = aux.getAnterior();
+            Nodo<T> siguiente = aux.getSiguiente();
+            
+            if (anterior != null) {
+                anterior.setSiguiente(siguiente);
+            }
+            if (siguiente != null) {
+                siguiente.setAnterior(anterior);
+            }
+        }
+        tamanio--;
+        return valor;
+    } else {
+        throw new PosicionIlegalException();
     }
-     /*
+    }
+
+    /*
      * Elimina un nodo que contiene un T valor
      * @param T: valor a eliminar
      * @return: si lo encuentra retorna la posicion a eliminar,si no retorna -1
@@ -109,9 +137,46 @@ public class ListaDoble<T>{
 
       */
      public int remover(T valor) throws PosicionIlegalException{
-        
-       
-        
+        Nodo<T> aux = cabeza;
+        int posicion = 0;
+        while (aux != null) {
+            if (aux.getValor().equals(valor)) {
+                remover(posicion);
+                return posicion;
+            }
+            aux = aux.getSiguiente();
+            posicion++;
+        }
+        return -1;
+    }
+    /*
+     * Elimina el ultimo nodo de la lista
+     * @return : el valor del nodo eliminado
+     * @throws PosicionIlegalException
+     */
+    public T eliminarUltimo() throws PosicionIlegalException {
+    if (esVacia()) {
+        return null;
+    }
+    
+    if (tamanio == 1) {
+        T valor = cabeza.getValor();
+        cabeza = null;
+        tamanio = 0;
+        return valor;
+    }
+    Nodo<T> aux = cabeza;
+    while (aux.getSiguiente() != null) {
+        aux = aux.getSiguiente();
+    }
+    T valor = aux.getValor();
+    Nodo<T> anterior = aux.getAnterior();
+    
+    if (anterior != null) {
+        anterior.setSiguiente(null);
+    }
+    tamanio--;
+    return valor;
     }
 
     /*
@@ -153,16 +218,50 @@ public class ListaDoble<T>{
 
     @Override
     public String toString() {
-       
-
+    if (esVacia()) {
+        return "Lista vacía";
+    }
+    
+    String resultado = "";
+    Nodo<T> aux = cabeza;
+    int posicion = 1;
+    
+    while (aux != null) {
+        resultado += posicion + ". " + aux.getValor() + "\n";
+        aux = aux.getSiguiente();
+        posicion++;
+    }
+    return resultado;
     }
     /*
      * busca un valor en la lista
      * @return true si contiene ese valor
      * si no regresa false
      */
-    public boolean contiene(T valor){
-        
+    public boolean contiene(T valor) {
+    Nodo<T> aux = cabeza;
+    while (aux != null) {
+        if (aux.getValor().equals(valor)) {
+            return true;
+        }
+        aux = aux.getSiguiente();
+    }
+    return false;
+    }
+
+     public void mostrar() {
+        if (esVacia()) {
+            System.out.println("la lista esta vacia");
+            return;
+        }
+        Nodo<T> aux = cabeza;
+        int posicion = 1;
+        System.out.println("lista pepe");
+        while (aux != null) {
+            System.out.println(posicion + ". " + aux.getValor());
+            aux = aux.getSiguiente();
+            posicion++;
+        }
     }
     
     
