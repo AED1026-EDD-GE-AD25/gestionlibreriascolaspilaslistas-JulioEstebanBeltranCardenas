@@ -16,16 +16,16 @@ public class Cola<T> {
     }
 
     public void encolar(T valor) {
-        Nodo<T> nuevo = new Nodo<>();
-        nuevo.setValor(valor);
-        
-        if (esVacia()) {
-            frente = nuevo;
-            fin = nuevo;
-        } else {
-            fin.setSiguiente(nuevo);
-            fin = nuevo;
-        }
+    Nodo<T> nuevo = new Nodo<>();
+    nuevo.setValor(valor);
+    
+    if (esVacia()) {
+        frente = nuevo;
+        fin = nuevo;
+    } else {
+        fin.setSiguiente(nuevo);
+        fin = nuevo;
+    }
         tamanio++;
     }
 
@@ -54,17 +54,19 @@ public class Cola<T> {
     }
 
     public void mostrar() {
-        if (esVacia()) {
-            System.out.println("Cola vacia xd");
-            return;
-        }
-        Nodo<T> actual = frente;
-        System.out.println("reserva el pepe");
-        int contador = 1;
-        while (actual != null) {
-            System.out.println(contador + ". " + actual.getValor());
-            actual = actual.getSiguiente();
-            contador++;
-        }
+    if (esVacia()) {
+        System.out.println("No hay libros en reserva");
+        return;
+    }
+    
+    System.out.println("Reserva");
+    Nodo<T> actual = frente;
+    int contador = 1;
+    while (actual != null) {
+        System.out.println(contador + ". " + actual.getValor());
+        actual = actual.getSiguiente();
+        contador++;
+    }
+
     }
 }

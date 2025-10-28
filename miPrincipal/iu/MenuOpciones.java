@@ -42,8 +42,13 @@ public class MenuOpciones{
         libreria.agregarLibroCola(libro);
     }
 
-    public static Libro obtenerLibroCola(){
-        return libreria.obtenerLibroCola();
+    public static void obtenerLibroCola(){
+    Libro libro = libreria.obtenerLibroCola();
+    if (libro != null) {
+        System.out.println("Libro obtenido de la cola: " + libro);
+    } else {
+        System.out.println("No hay libros en la cola");
+    }
     }
 
     public static void mostrarReservaLibros(){
